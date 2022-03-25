@@ -4,7 +4,7 @@
 
 void exibe_vetor(int vetor[ARR_SIZE]);
 
-void bubble_sort(int vetor[ARR_SIZE], int tam_vetor);
+void bubble_sort(int vetor[ARR_SIZE], int tam_vetor,int matriz[2][ARR_SIZE]);
 
 int le_vetor(int vetor[ARR_SIZE]);
 
@@ -14,18 +14,19 @@ int busca_binaria(int vetor[ARR_SIZE], int chave);
 
 int main (int argc, char *argv[])
 {
-  int a,b,c,chave,i,vetor[ARR_SIZE],matriz_aux[ARR_SIZE][2];
+  int a,b,chave,i,vetor[ARR_SIZE],matriz_aux[2][ARR_SIZE];
   a = le_vetor(vetor);
   printf("Digite a chave a ser buscada: ");
   scanf("%i",&chave);
   for(i=0;i<ARR_SIZE;i++){
-    matriz_aux[i][0] = vetor[i];
-    matriz_aux[i][1] = i;
+    matriz_aux[0][i] = vetor[i];
+    matriz_aux[1][i] = i;
   }
-  bubble_sort(vetor,a);
+  bubble_sort(vetor,a,matriz_aux);
   b = busca_binaria(vetor,chave);
+  exibe_vetor(vetor);
   if(b!=-1){  
-    printf("Valor %i encontrado no índice %i.",chave,matriz_aux[][]);
+    printf("Valor %i encontrado no índice %i.",chave,matriz_aux[1][b]);
     return 0;
   }
   printf("Valor %i não foi encontrado!",chave);
@@ -69,12 +70,13 @@ void troca_elementos(int vetor[ARR_SIZE], int i, int j) {
   vetor[j] = aux;
 }
 
-void bubble_sort(int vetor[ARR_SIZE], int tam_vetor) {
+void bubble_sort(int vetor[ARR_SIZE], int tam_vetor, int matriz[2][ARR_SIZE]) {
   int n,k;
   for(n=0;n<tam_vetor;n++){
     for(k=0;k<tam_vetor-1;k++){
       if(vetor[k]>vetor[k+1]){
         troca_elementos(vetor,k,k+1);
+        troca_elementos(matriz[1],k,k+1);
       }
     }
   }
